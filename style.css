@@ -1,0 +1,63 @@
+.container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.input-field {
+  width: 100%;
+  margin: 2vh 2vw 2vh 2vw;
+  height: 8vh;
+}
+
+.break {
+  margin: 2vh 2vw 2vh 2vw;
+}
+
+.dial {
+  background-color: whitesmoke;
+  height: 50vh;
+  width: 50vw;
+  margin: 2vh 2vw 2vh 2vw;
+  border-radius: 3vw;
+}
+
+.dial .number {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;  /* horizontal */
+  align-items: center;      /* vertical */
+  background-color: lightgray;
+  margin: 2vh 3vw 1vh 3vw;
+  height: 5vh;
+  width: 5vw;
+  border-style: solid;
+  border-radius: 0.75vh;
+  border-width: 0.25vh;
+}
+
+.operations {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;  /* horizontal */
+  align-items: center;      /* vertical */
+  background-color: lightgray;
+  margin: 2vh 3vw 1vh 3vw;
+  height: 5vh;
+  width: 5vw;
+  border-style: solid;
+  border-radius: 0.75vh;
+  border-width: 0.25vh;
+}
+
+.calculator {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: darkgray;
+  height: 80vh;
+  width: 50vw;
+  border-radius: 1vh;
+  border-width: 0.5vh;
+  border-style: solid;
+}
