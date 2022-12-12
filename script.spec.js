@@ -1,4 +1,4 @@
-const CalculatorModule = require('./script');
+const CalculatorModule = require('./tests');
 
 describe('adding two numbers', () => {
   test('adds two numbers', () => {

@@ -7,7 +7,9 @@
 .input-field {
   width: 100%;
   margin: 2vh 2vw 2vh 2vw;
+  padding-left: 1vw;
   height: 8vh;
+  font-size: x-large;
 }
 
 .break {
