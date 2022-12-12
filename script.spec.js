@@ -7,7 +7,6 @@ describe('adding two numbers', () => {
   test('works for negative results', () => {
     expect(CalculatorModule.add(-5, 3)).toEqual(-2);
   });});
-const multiply = require('./script');
 
 describe('multiplying two numbers', () => {
   test('multiplies two numbers', () => {
@@ -18,16 +17,18 @@ describe('multiplying two numbers', () => {
   });
 });
 
-
 describe('subtracting two numbers', () => {
   test('subtracts the first from the second numbers', () => {
-    expect(CalculatorModule.substract(7, 5)).toEqual(2);
+    expect(CalculatorModule.subtract(7, 5)).toEqual(2);
   });
 });
 
 describe('dividing two numbers', () => {
   test('divides the first through the second numbers', () => {
     expect(CalculatorModule.divide(3, 3)).toEqual(1);
+  });
+  test('throws Exception when dividing through zero.', () => {
+    expect(CalculatorModule.divide(7, 0)).toEqual("You shall not divide through 0.");
   });
 });
 

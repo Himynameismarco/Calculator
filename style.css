@@ -29,11 +29,17 @@
   align-items: center;      /* vertical */
   background-color: lightgray;
   margin: 2vh 3vw 1vh 3vw;
-  height: 5vh;
-  width: 5vw;
+  height: 7vh;
+  width: 7vw;
   border-style: solid;
   border-radius: 0.75vh;
   border-width: 0.25vh;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .operations {
