@@ -46,7 +46,54 @@ function showEquationOnScreen() {
  */
 function analyzeEquation() {
   let arrayWithUsableArgs = splitArrayInArrayOfArgs();
-  let result = doOperation(arrayWithUsableArgs[1], arrayWithUsableArgs[0], arrayWithUsableArgs[2]);
+  let indexOfMultOperation = arrayWithUsableArgs.indexOf('*');
+  console.log("Index of Mult: " + indexOfMultOperation);
+  let indexOfDivOperation = arrayWithUsableArgs.indexOf('/');
+  let result;
+  let endlessStopper = 0;
+  while ((indexOfDivOperation != -1) || (indexOfMultOperation != -1)) {
+    endlessStopper++;
+    console.log("Starting while loop, because there still is a mult or div operation with array: " + arrayWithUsableArgs);
+    if (indexOfDivOperation == -1) {
+      result =
+          doOperation(arrayWithUsableArgs[indexOfMultOperation],
+              arrayWithUsableArgs[indexOfMultOperation - 1],
+              arrayWithUsableArgs[indexOfMultOperation + 1]);
+      arrayWithUsableArgs.splice(indexOfMultOperation - 1, 3 , result);
+      console.log("Result in Mult: " + result);
+    } else if (indexOfMultOperation == -1 ) {
+      result =
+          doOperation(arrayWithUsableArgs[indexOfDivOperation],
+              arrayWithUsableArgs[indexOfDivOperation - 1],
+              arrayWithUsableArgs[indexOfDivOperation + 1]);
+      arrayWithUsableArgs.splice(indexOfDivOperation - 1, 3 , result);
+    } else {
+      console.warn("Error! Should not happen.")
+    }
+    indexOfMultOperation = arrayWithUsableArgs.indexOf('*');
+    indexOfDivOperation = arrayWithUsableArgs.indexOf('/');
+    console.log("Array at the end of the iteration: " + arrayWithUsableArgs);
+    if (endlessStopper > 5) {
+      break;
+    }
+  }
+  while (arrayWithUsableArgs.length != 2) {
+    console.log("Array still has more than two elements.");
+    let indexOfOperation = arrayWithUsableArgs.indexOf('+');
+    if (indexOfOperation == -1) {
+      indexOfOperation = arrayWithUsableArgs.indexOf('-');
+      if (indexOfOperation == -1) {
+        break;
+      }
+    }
+    console.log("index of operation + or - : " + indexOfOperation);
+    result = doOperation(arrayWithUsableArgs[indexOfOperation],
+        arrayWithUsableArgs[indexOfOperation - 1],
+        arrayWithUsableArgs[indexOfOperation + 1]);
+    console.log("Result of operation: " + result);
+    arrayWithUsableArgs.splice(indexOfOperation - 1, 3 , result);
+    console.log("Array at the end: " + arrayWithUsableArgs);
+  }
   console.log("Final Result: " + result);
   arrayOfEquation.push(result);
 }
