@@ -14,7 +14,6 @@ function pressButton(e) {
   let pushedButton = e.target.id;
   console.log("Pressed ID: " + e.target.id);
   if (typeof parseInt(pushedButton) == 'number') {
-    //createInputArrayAndShowOnInputField(e);
     addPressedElementToInputArray(e);
     if (parseInt(pushedButton) == 14) {
       analyzeEquation();
@@ -42,14 +41,14 @@ function showEquationOnScreen() {
   input.value = equationString;
 }
 
+/**
+ * someone pushed the '=' - now we analyze the equation
+ */
 function analyzeEquation() {
   let arrayWithUsableArgs = splitArrayInArrayOfArgs();
   let result = doOperation(arrayWithUsableArgs[1], arrayWithUsableArgs[0], arrayWithUsableArgs[2]);
   console.log("Final Result: " + result);
   arrayOfEquation.push(result);
-  currentNum = "";
-  arrayOfEquation.forEach(element => (currentNum = currentNum + element));
-  input.value = currentNum;
 }
 
 function splitArrayInArrayOfArgs() {
@@ -62,7 +61,7 @@ function splitArrayInArrayOfArgs() {
     console.log("elem: " + elem);
     //If it is not a number
     if (isNaN(elem)) {
-      console.log("Element probably is an operation!");
+      //console.log("Element probably is an operation!");
       myOperation = elem;
       argumentForResultArr = evaluateArrToInt(currentArr);
       resultArr.push(argumentForResultArr);
@@ -70,7 +69,7 @@ function splitArrayInArrayOfArgs() {
       currentArr = Array();
     } else {
       currentArr.push(elem);
-      console.log("currentArr: " + currentArr);
+      //console.log("currentArr: " + currentArr);
     }
   }
   console.log("resultArr: " + resultArr);
@@ -78,10 +77,10 @@ function splitArrayInArrayOfArgs() {
 }
 
 function evaluateArrToInt(arr) {
-  console.log("Starting with arr: " + arr);
+  console.log("Evaluating the following Array to an Integer: " + arr);
   let result = 0;
   arr.forEach(element => (result = result + element));
-  console.log("result: " + result);
+  console.log("Result as Integer: " + result);
   return parseInt(result);
 }
 
