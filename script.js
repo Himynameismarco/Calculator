@@ -14,28 +14,29 @@ function pressButton(e) {
   let pushedButton = e.target.id;
   console.log("Pressed ID: " + e.target.id);
   if (typeof parseInt(pushedButton) == 'number') {
-    createInputArrayAndShowOnInputField(e);
+    //createInputArrayAndShowOnInputField(e);
+    addPressedElementToInputArray(e);
     if (parseInt(pushedButton) == 14) {
       analyzeEquation();
     }
+    showEquationOnScreen(e);
   }
-  input.value = currentNum;
 }
 
+function addPressedElementToInputArray(e) {
+  currentNum = e.target.innerText;
+  arrayOfEquation.push(currentNum);
+  console.log("Current ArrOfEquation: " + arrayOfEquation)
+  currentNum = "";
+}
 
-//TODO: split up in two functions
-function createInputArrayAndShowOnInputField(e) {
-  if (firstPress) {
-    currentNum = e.target.innerText;
-    firstPress = false;
-  } else {
-    arrayOfEquation = currentNum.split('');
-    arrayOfEquation.push(e.target.innerText);
-    currentNum = "";
-    arrayOfEquation.forEach(element => (currentNum = currentNum + element));
-    console.log("Original Array: " + arrayOfEquation);
+function showEquationOnScreen() {
+  let equationString = "";
+  for (let i = 0; i < arrayOfEquation.length; i++) {
+    equationString += arrayOfEquation[i];
+    console.log("equationAsString: " + equationString);
   }
-  input.value = currentNum;
+  input.value = equationString;
 }
 
 function analyzeEquation() {
