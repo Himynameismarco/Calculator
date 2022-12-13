@@ -1,3 +1,7 @@
+body {
+  font-size: x-large;
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -68,4 +72,60 @@
   border-radius: 1vh;
   border-width: 0.5vh;
   border-style: solid;
+}
+
+@media (max-width: 900px) {
+
+  body {
+    font-size: large;
+  }
+
+  .calculator {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: darkgray;
+    height: 80vh;
+    width: 90vw;
+    border-radius: 1vh;
+    border-width: 0.5vh;
+    border-style: solid;
+  }
+
+  .operations {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;  /* horizontal */
+    align-items: center;      /* vertical */
+    background-color: lightgray;
+    margin: 2vh 1vw 1vh 1vw;
+    height: 5.5vh;
+    width: 11vw;
+    border-style: solid;
+    border-radius: 0.75vh;
+    border-width: 0.25vh;
+  }
+
+  .dial {
+    background-color: whitesmoke;
+    height: 50vh;
+    width: 80vw;
+    margin: 2vh 2vw 2vh 2vw;
+    border-radius: 3vw;
+  }
+
+  .number {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;  /* horizontal */
+    align-items: center;      /* vertical */
+    background-color: lightgray;
+    margin: 2vh 3vw 1vh 3vw;
+    height: 7vh;
+    width: 15vw;
+    border-style: solid;
+    border-radius: 0.75vh;
+    border-width: 0.25vh;
+  }
+
 }

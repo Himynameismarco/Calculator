@@ -1,4 +1,4 @@
-for (let i = 0; i < 15; i++) {
+for (let i = 0; i < 16; i++) {
   let number = document.getElementById(i.toString());
   number.addEventListener('click', pressButton);
 }
@@ -18,6 +18,9 @@ function pressButton(e) {
     addPressedElementToInputArray(e);
     if (parseInt(pushedButton) == 14) {
       analyzeEquation();
+    }
+    if (parseInt(pushedButton) == 15) {
+      arrayOfEquation = Array();
     }
     showEquationOnScreen(e);
   }
