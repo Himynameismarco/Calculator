@@ -153,7 +153,9 @@ function doOperation(operation, firstArg, secondArg) {
 }
 
 
-//operations:
+//operations -- I first wrote the equations and tested them using the tests.js
+// class. I do not know yet how to use objects in JS. I think I will learn it soon.
+// For now, I just copy pasted the fucntions from the tests.js file.
 
 function add() {
   let sum = 0.00;
