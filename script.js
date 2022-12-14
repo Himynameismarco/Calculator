@@ -7,8 +7,8 @@ for (let i = 0; i < 16; i++) {
 let input = document.getElementById("input");
 let currentNum = 0;
 input.value = currentNum;
-let firstPress = true;
 let arrayOfEquation = Array();
+const arrayOfOperations = ['+', '-', '*', '/'];
 
 function pressButton(e) {
   let pushedButton = e.target.id;
@@ -22,8 +22,7 @@ function pressButton(e) {
     showEquationOnScreen(e);
     // clear
     if (parseInt(pushedButton) == 15) {
-      arrayOfEquation = Array();
-      input.value = 0;
+      setInputToStart();
     }
   }
 }
@@ -49,37 +48,58 @@ function showEquationOnScreen() {
  */
 function analyzeEquation() {
   let arrayWithUsableArgs = splitArrayInArrayOfArgs();
+  if (arrayWithUsableArgs === null) {
+    console.warn("Elements of Array could not be split into usable elements.")
+    return null;
+  }
   let indexOfMultOperation = arrayWithUsableArgs.indexOf('*');
-  console.log("Index of Mult: " + indexOfMultOperation);
   let indexOfDivOperation = arrayWithUsableArgs.indexOf('/');
   let result;
-  let endlessStopper = 0; // just to be sure
+  let endlessLoopBreaker = 0;
+
+  console.log("Analyzing this usable Array: " + arrayWithUsableArgs);
+
+  // do all '*' and '/' operations
   while ((indexOfDivOperation != -1) || (indexOfMultOperation != -1)) {
-    endlessStopper++;
-    console.log("Starting while loop, because there still is a mult or div operation with array: " + arrayWithUsableArgs);
+    console.log("Still a '*' or '/' in array with usable args: "
+        + arrayWithUsableArgs);
+    let indexOfOperation = 0;
+    let operation = "";
+    let firstArg = 1;
+    let secondArg = 1;
+
+
+    // no '/' operations, do '*'; no '*' do '/'
     if (indexOfDivOperation == -1) {
-      result =
-          doOperation(arrayWithUsableArgs[indexOfMultOperation],
-              arrayWithUsableArgs[indexOfMultOperation - 1],
-              arrayWithUsableArgs[indexOfMultOperation + 1]);
-      arrayWithUsableArgs.splice(indexOfMultOperation - 1, 3 , result);
-      console.log("Result in Mult: " + result);
+      indexOfOperation = indexOfMultOperation;
+      operation = arrayWithUsableArgs[indexOfMultOperation];
+      firstArg = arrayWithUsableArgs[indexOfMultOperation - 1];
+      secondArg = arrayWithUsableArgs[indexOfMultOperation + 1];
     } else if (indexOfMultOperation == -1 ) {
-      result =
-          doOperation(arrayWithUsableArgs[indexOfDivOperation],
-              arrayWithUsableArgs[indexOfDivOperation - 1],
-              arrayWithUsableArgs[indexOfDivOperation + 1]);
-      arrayWithUsableArgs.splice(indexOfDivOperation - 1, 3 , result);
+      indexOfOperation = indexOfDivOperation;
+      operation = arrayWithUsableArgs[indexOfDivOperation];
+      firstArg = arrayWithUsableArgs[indexOfDivOperation - 1];
+      secondArg = arrayWithUsableArgs[indexOfDivOperation + 1];
     } else {
-      console.warn("Error! Should not happen.")
+      console.warn("ERROR! Tried to multiply or divide even though "
+          + "there was no multiplication or division sign in the "
+          + "array with usable args.")
     }
+    result = doOperation(operation, firstArg, secondArg);
+
+    // replace firstArg, operation, and secondArg by result
+    arrayWithUsableArgs.splice(indexOfOperation - 1, 3 , result);
+
     indexOfMultOperation = arrayWithUsableArgs.indexOf('*');
     indexOfDivOperation = arrayWithUsableArgs.indexOf('/');
     console.log("Array at the end of the iteration: " + arrayWithUsableArgs);
-    if (endlessStopper > 5) {
+    endlessLoopBreaker++;
+    if (endlessLoopBreaker > 50) {
       break;
     }
   }
+
+  // do '+' and '-' operations
   while (arrayWithUsableArgs.length != 2) {
     console.log("Array still has more than two elements.");
     let indexOfOperation = arrayWithUsableArgs.indexOf('+');
@@ -96,14 +116,53 @@ function analyzeEquation() {
     console.log("Result of operation: " + result);
     arrayWithUsableArgs.splice(indexOfOperation - 1, 3 , result);
     console.log("Array at the end: " + arrayWithUsableArgs);
+    endlessLoopBreaker++;
+    if (endlessLoopBreaker > 50) {
+      break;
+    }
   }
+  endlessLoopBreaker = 0;
   console.log("Final Result: " + result);
   arrayOfEquation.push(result);
 }
 
+function checkUsableArrayForMistakesInEquation() {
+
+  // check if array starts with an operation
+  if (arrayOfEquation.indexOf('*') == 0
+      || arrayOfEquation.indexOf('/') == 0) {
+    return false;
+  }
+
+  // check if two operations follow after each other
+  for (let i = 0; i < arrayOfEquation.length; i++) {
+    let elem = arrayOfEquation[i];
+    let indexOfPrevOperation;
+    if (arrayOfOperations.includes(elem)) {
+      if (indexOfPrevOperation == i - 1) {
+        return false;
+      }
+      indexOfPrevOperation = i;
+    }
+  }
+  return true;
+}
+
+
 function splitArrayInArrayOfArgs() {
   let currentArr = Array();
   let resultArr = Array();
+
+  let isArrayUsable = checkUsableArrayForMistakesInEquation(arrayOfEquation);
+
+  if (!isArrayUsable) {
+    alert("Something went wrong in the equation. "
+        + "Try again: Start with a number, moreover it doesn't make sense to "
+        + "have two operations followed by another.");
+    setInputToStart();
+    return null;
+  }
+
   for (let i = 0; i < arrayOfEquation.length; i++) {
     let elem = arrayOfEquation[i];
     let argumentForResultArr;
@@ -122,7 +181,7 @@ function splitArrayInArrayOfArgs() {
       //console.log("currentArr: " + currentArr);
     }
   }
-  console.log("resultArr: " + resultArr);
+  console.log("Array with usable Args: " + resultArr);
   return resultArr;
 }
 
@@ -153,6 +212,11 @@ function doOperation(operation, firstArg, secondArg) {
       return divide(firstArg, secondArg);
       break;
   }
+}
+
+function setInputToStart() {
+  arrayOfEquation = Array();
+  input.value = 0;
 }
 
 
