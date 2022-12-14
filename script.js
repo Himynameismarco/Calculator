@@ -15,13 +15,16 @@ function pressButton(e) {
   console.log("Pressed ID: " + e.target.id);
   if (typeof parseInt(pushedButton) == 'number') {
     addPressedElementToInputArray(e);
+    // =
     if (parseInt(pushedButton) == 14) {
       analyzeEquation();
     }
+    showEquationOnScreen(e);
+    // clear
     if (parseInt(pushedButton) == 15) {
       arrayOfEquation = Array();
+      input.value = 0;
     }
-    showEquationOnScreen(e);
   }
 }
 
@@ -50,7 +53,7 @@ function analyzeEquation() {
   console.log("Index of Mult: " + indexOfMultOperation);
   let indexOfDivOperation = arrayWithUsableArgs.indexOf('/');
   let result;
-  let endlessStopper = 0;
+  let endlessStopper = 0; // just to be sure
   while ((indexOfDivOperation != -1) || (indexOfMultOperation != -1)) {
     endlessStopper++;
     console.log("Starting while loop, because there still is a mult or div operation with array: " + arrayWithUsableArgs);
