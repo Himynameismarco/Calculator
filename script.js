@@ -17,7 +17,10 @@ function pressButton(e) {
     addPressedElementToInputArray(e);
     // =
     if (parseInt(pushedButton) == 14) {
-      analyzeEquation();
+      let nullChecker = analyzeEquation();
+      if (nullChecker === null) {
+
+      }
     }
     showEquationOnScreen(e);
     // clear
@@ -49,7 +52,7 @@ function showEquationOnScreen() {
 function analyzeEquation() {
   let arrayWithUsableArgs = splitArrayInArrayOfArgs();
   if (arrayWithUsableArgs === null) {
-    console.warn("Elements of Array could not be split into usable elements.")
+    console.warn("Elements of Array could not be split into usable elements.");
     return null;
   }
   let indexOfMultOperation = arrayWithUsableArgs.indexOf('*');
@@ -130,7 +133,8 @@ function checkUsableArrayForMistakesInEquation() {
 
   // check if array starts with an operation
   if (arrayOfEquation.indexOf('*') == 0
-      || arrayOfEquation.indexOf('/') == 0) {
+      || arrayOfEquation.indexOf('/') == 0
+      || arrayOfEquation.indexOf('=') == 0) {
     return false;
   }
 
