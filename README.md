@@ -5,6 +5,6 @@ This is a classic calculator, that is able to
 - multiply
 - divide
 
-and has a nice interface. 
+and has an ok interface. 
 
 Moreover, I will practice Test-Driven-Development while creating it. 
