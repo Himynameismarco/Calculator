@@ -17,10 +17,7 @@ function pressButton(e) {
     addPressedElementToInputArray(e);
     // =
     if (parseInt(pushedButton) == 14) {
-      let nullChecker = analyzeEquation();
-      if (nullChecker === null) {
-
-      }
+      analyzeEquation();
     }
     showEquationOnScreen(e);
     // clear
