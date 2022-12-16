@@ -1,4 +1,4 @@
-for (let i = 0; i < 16; i++) {
+for (let i = 0; i < 17; i++) {
   let number = document.getElementById(i.toString());
   number.addEventListener('click', pressButton);
 }
@@ -169,11 +169,11 @@ function splitArrayInArrayOfArgs() {
     let argumentForResultArr;
     let myOperation;
     console.log("elem: " + elem);
-    //If it is not a number
-    if (isNaN(elem)) {
+    //If it is neither a number nor a point
+    if (isNaN(elem) && !(elem.includes('.'))) {
       //console.log("Element probably is an operation!");
       myOperation = elem;
-      argumentForResultArr = evaluateArrToInt(currentArr);
+      argumentForResultArr = evaluateArrToFloat(currentArr);
       resultArr.push(argumentForResultArr);
       resultArr.push(elem);
       currentArr = Array();
@@ -186,12 +186,12 @@ function splitArrayInArrayOfArgs() {
   return resultArr;
 }
 
-function evaluateArrToInt(arr) {
+function evaluateArrToFloat(arr) {
   console.log("Evaluating the following Array to an Integer: " + arr);
   let result = 0;
   arr.forEach(element => (result = result + element));
-  console.log("Result as Integer: " + result);
-  return parseInt(result);
+  console.log("Result as Integer: " + parseFloat(result));
+  return parseFloat(result);
 }
 
 function doOperation(operation, firstArg, secondArg) {

@@ -42,6 +42,21 @@ body {
   border-width: 0.25vh;
 }
 
+.transparent {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;  /* horizontal */
+  align-items: center;      /* vertical */
+  background-color: transparent;
+  margin: 2vh 3vw 1vh 3vw;
+  height: 7vh;
+  width: 7vw;
+  border-color: transparent;
+  border-style: solid;
+  border-radius: 0.75vh;
+  border-width: 0.25vh;
+}
+
 .row {
   display: flex;
   justify-content: center;
